@@ -58,6 +58,7 @@ def traverse(player, moves):
 
         if last_visited not in visited:
             visited.add(last_visited)
+
             edges = road_map[last_visited]
             for edge in edges:
                 if road_map[last_visited][edge] == '?':
@@ -71,6 +72,7 @@ def traverse(player, moves):
 
 # Check for exits that haven't been traversed
 def unCharted(player, new_moves):
+
     exits = road_map[player.current_room.id]
     unCharted_route = []
 
@@ -81,11 +83,11 @@ def unCharted(player, new_moves):
     if len(unCharted_route) == 0:
 
         # traverse until you find a room with unCharted exits
-        untraversed = traverse(player, new_moves)
+        unCharted = traverse(player, new_moves)
         new_room = player.current_room.id
 
-        for room in untraversed:
-            # in each room, check for untraversed exits and add them to new moves
+        for room in unCharted:
+            # in each room, check for unCharted exits and add them to new moves
             for direction in road_map[new_room]:
                 if road_map[new_room][direction] == room:
                     new_moves.enqueue(direction)
@@ -152,15 +154,15 @@ else:
     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
 
 
-#######
+######
 # UNCOMMENT TO WALK AROUND
-#######
-# player.current_room.print_room_description(player)
-# while True:
-#     cmds = input("-> ").lower().split(" ")
-#     if cmds[0] in ["n", "s", "e", "w"]:
-#         player.travel(cmds[0], True)
-#     elif cmds[0] == "q":
-#         break
-#     else:
-#         print("I did not understand that command.")
+######
+player.current_room.print_room_description(player)
+while True:
+    cmds = input("-> ").lower().split(" ")
+    if cmds[0] in ["n", "s", "e", "w"]:
+        player.travel(cmds[0], True)
+    elif cmds[0] == "q":
+        break
+    else:
+        print("I did not understand that command.")
